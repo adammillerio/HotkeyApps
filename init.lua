@@ -31,7 +31,7 @@ HotkeyApps.logger = nil
 --- HotkeyApps specific log level override, see hs.logger.setLogLevel for options.
 HotkeyApps.logLevel = nil
 
---- EnsureApp:init()
+--- HotkeyApps:init()
 --- Method
 --- Spoon initializer method for EnsureApp.
 ---
@@ -42,15 +42,24 @@ HotkeyApps.logLevel = nil
 ---  * None
 function HotkeyApps:init() end
 
+--- HotkeyApps:bindHotkeys(mapping)
+--- Method
+--- Bind method, binds all provided hotkeys to their app ensure callbacks.
+---
+--- Parameters:
+---  * mapping - Table of app -> hotkey mappings where app is the name of the
+---    app in the EnsureApps config.
+--- Returns:
+---  * None
 function HotkeyApps:bindHotkeys(mapping)
     local hotkeyBindings = {}
 
-    -- Generate an ensure callback for every app provided by the user.
+    -- Bind each hotkey to the ensure callback for the app.
     for app, hotkey in pairs(mapping) do
         hotkeyBindings[app] = EnsureApp:ensureAppCallback(app)
     end
 
-    -- Bind all provided hotkeys to their ensure callbacks.
+    -- Bind generated hotkey spec.
     hs.spoons.bindHotkeysToSpec(hotkeyBindings, mapping)
 end
 
