@@ -101,6 +101,9 @@ end
 --- Returns:
 ---  * None
 function HotkeyApps:bindHotkeys(mapping)
+    -- Enable toggling of show/hide for all app hotkeys.
+    local actionConfig = {toggle = true}
+
     -- Bind each hotkey to the ensure callback for the app.
     for app, hotkey in pairs(mapping) do
         local hotkeyChord = hotkey[3]
@@ -110,10 +113,12 @@ function HotkeyApps:bindHotkeys(mapping)
             -- Chorded hotkeys can be created and enabled, they have no special
             -- logic.
             local appHotkey = hs.hotkey.new(hotkey[1], hotkey[2],
-                                            EnsureApp:ensureAppCallback(app))
+                                            EnsureApp:ensureAppCallback(app,
+                                                                        actionConfig))
             appHotkey:enable()
 
             self.nonChordedHotkeys[app] = appHotkey
+            -- This is a left chord input.
         elseif hotkeyChord == "left" then
             if self.nonChordedHotkeys[app] then
                 self.logger.ef(
@@ -121,9 +126,12 @@ function HotkeyApps:bindHotkeys(mapping)
                     app)
             end
 
+            -- Chorded hotkeys are created, but enabled only when the cord is
+            -- down in the eventtap _flagsChanged handler.
             self.leftChordHotkeys[app] =
                 hs.hotkey.new(hotkey[1], hotkey[2],
-                              EnsureApp:ensureAppCallback(app))
+                              EnsureApp:ensureAppCallback(app, actionConfig))
+            -- This is a right chord input.
         elseif hotkeyChord == "right" then
             if self.nonChordedHotkeys[app] then
                 self.logger.ef(
@@ -131,9 +139,11 @@ function HotkeyApps:bindHotkeys(mapping)
                     app)
             end
 
+            -- Chorded hotkeys are created, but enabled only when the cord is
+            -- down in the eventtap _flagsChanged handler.
             self.rightChordHotkeys[app] =
                 hs.hotkey.new(hotkey[1], hotkey[2],
-                              EnsureApp:ensureAppCallback(app))
+                              EnsureApp:ensureAppCallback(app, actionConfig))
         end
     end
 
