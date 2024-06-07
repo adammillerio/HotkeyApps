@@ -3,6 +3,8 @@ HotkeyApps is a plugin for Hammerspoon which allows you to bind hotkeys to guara
 
 The application will be automatically moved to the focused space in Mission Control. It can either be clicked out of like normal or hidden by pressing the hotkey again. If the `spacePrecedence` option is set to `true`, then it will check for and open a Space-specific instance of the application in the currently focused Space. This is useful for things like browsers, terminals, and code editors.
 
+Additionally, hotkeys can be bound to only left or right modifier keys.
+
 # Installation
 
 This Spoon depends on two other Spoons being installed, loaded, and configured:
@@ -54,7 +56,8 @@ spoon.SpoonInstall:andUse("HotkeyApps", {
         ["Obsidian"] = {{"cmd", "shift"}, "w"},
         ["Arc"] = {{"cmd", "shift"}, "a"},
         ["Spotify"] = {{"cmd", "shift"}, "s"},
-        ["Discord"] = {{"cmd", "shift"}, "d"}
+        ["Discord"] = {{"cmd", "shift"}, "d"},
+        ["Firefox"] = {{"cmd"}, "f", "right"},
     }
 })
 ```
@@ -64,6 +67,8 @@ This will bind the following hotkeys to Cmd+Shift+W/A/S/D respectively:
 * Open Space-specific window for Arc in the current Space, and maximize.
 * Open global window for Spotify, move it to the current Space, and maximize.
 * Open global window for Discord, move it to the current space, and maximize.
+
+Additionally, when the right Cmd key and F is pressed, Firefox will be opened.
 
 ## Manual
 
@@ -111,5 +116,6 @@ spoon.HotkeyApps:bindHotkeys(
 	["Arc"] = {{"cmd", "shift"}, "a"},
 	["Spotify"] = {{"cmd", "shift"}, "s"},
 	["Discord"] = {{"cmd", "shift"}, "d"}
+    ["Firefox"] = {{"cmd"}, "f", "right"},
 )
 ```
