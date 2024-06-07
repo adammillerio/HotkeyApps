@@ -11,7 +11,7 @@ HotkeyApps.__index = HotkeyApps
 
 -- Metadata
 HotkeyApps.name = "HotkeyApps"
-HotkeyApps.version = "0.0.1"
+HotkeyApps.version = "0.0.2"
 HotkeyApps.author = "Adam Miller <adam@adammiller.io>"
 HotkeyApps.homepage = "https://github.com/adammillerio/HotkeyApps.spoon"
 HotkeyApps.license = "MIT - https://opensource.org/licenses/MIT"
